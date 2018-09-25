@@ -1,0 +1,11 @@
+<div class='container'>
+<h1 class='text-center'>Ideas</h1>
+    <% @ideas.each do |idea| %>
+        <div class="card m-2">
+            <div class="card-body">
+                    <h5 class="card-title"><%= link_to idea.title, idea_path(idea.id), class: "text-warning" %></h5>
+                    <p class="card-text"><%= idea.body %></p>
+            </div>
+        </div>
+    <% end %>
+</div>
