@@ -7,9 +7,9 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :nullify
 
   validates :first_name, :last_name, presence: true
-  
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  
+
   validates(
     :email,
     presence: true,
@@ -18,6 +18,6 @@ class User < ApplicationRecord
   )
 
   def full_name
-    first_name + " " + last_name
+    first_name + ' ' + last_name
   end
 end

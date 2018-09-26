@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,44 +12,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_234302) do
-
+ActiveRecord::Schema.define(version: 20_180_924_234_302) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "ideas", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.integer "members", default: 0
-    t.integer "likes", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_ideas_on_user_id"
+  create_table 'ideas', force: :cascade do |t|
+    t.string 'title'
+    t.text 'body'
+    t.integer 'members', default: 0
+    t.integer 'likes', default: 0
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.bigint 'user_id'
+    t.index ['user_id'], name: 'index_ideas_on_user_id'
   end
 
-  create_table "reviews", force: :cascade do |t|
-    t.text "body"
-    t.bigint "idea_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.bigint "user_id"
-    t.index ["idea_id"], name: "index_reviews_on_idea_id"
-    t.index ["user_id"], name: "index_reviews_on_user_id"
+  create_table 'reviews', force: :cascade do |t|
+    t.text 'body'
+    t.bigint 'idea_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'title'
+    t.bigint 'user_id'
+    t.index ['idea_id'], name: 'index_reviews_on_idea_id'
+    t.index ['user_id'], name: 'index_reviews_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "email"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'email'
+    t.string 'password_digest'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['email'], name: 'index_users_on_email', unique: true
   end
 
-  add_foreign_key "ideas", "users"
-  add_foreign_key "reviews", "ideas"
-  add_foreign_key "reviews", "users"
+  add_foreign_key 'ideas', 'users'
+  add_foreign_key 'reviews', 'ideas'
+  add_foreign_key 'reviews', 'users'
 end

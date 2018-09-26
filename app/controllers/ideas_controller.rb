@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class IdeasController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :find_idea, only: [:show, :edit, :update, :destroy]
+  before_action :find_idea, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
+
 
   def index
     @ideas = Idea.order(created_at: :desc)
@@ -24,6 +26,7 @@ class IdeasController < ApplicationController
 
   def show
     @reviews = @idea.reviews.order(created_at: :desc)
+    @review = Review.new
   end
 
   def destroy
@@ -31,8 +34,7 @@ class IdeasController < ApplicationController
     redirect_to ideas_path
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @idea.update idea_params
@@ -41,13 +43,20 @@ class IdeasController < ApplicationController
       render :edit
     end
   end
-end
 
-private
-def find_idea
-  @idea = Idea.find params[:id]
-end
-def idea_params
-  params.require(:idea).permit(:title, :body)
-end
+  private
+  def find_idea
+    @idea = Idea.find params[:id]
+  end
 
+  def idea_params
+    params.require(:idea).permit(:title, :body)
+  end
+
+  def authorize_user!
+    unless can?(:crud, @idea)
+      flash[:danger] = "Access Denied"
+      redirect_to ideas_path
+    end
+  end
+end

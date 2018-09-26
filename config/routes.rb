@@ -6,9 +6,9 @@ Rails.application.routes.draw do
     resources :reviews, shallow: true, only: %i[create destroy edit update]
   end
 
-  resources :users, only: [:new, :create]
+  resources :users, only: %i[new create]
 
-  resource :sessions, only: [:new, :destroy, :create]
+  resource :sessions, only: %i[new destroy create]
 
   get '/' => 'ideas#index'
 end
